@@ -1,30 +1,33 @@
 {
-    "email": "email",
-    "firstName": "firstName",
-    "lastName": "lastName",
-    "age": "age",
+    "type": "doctor",
+    "bloodgroup": "0+",
+    "lastName": "Sequeira",
     "password": "password",
-    "bloodgroup": "bloodgroup",
-     "medicalData":{
-        "diagonsis":[
+    "medicalData": {
+        "records": [
             {
-                "name":"name",
-                "description":"description",
-                "doctor":"doctoremail",
-                "timestamp":"timestamp",
-                "documentUploaded":[
-                    "hash"
-                ]
+                "timestamp": "timestamp",
+                "hash": "hash",
+                "name": "rachel"
             }
         ],
-        "records":[
+        "diagonsis": [
             {
-                "name":"rachel",
-                "timestamp":"timestamp"
+                "documentUploaded": [
+                    "hash"
+                ],
+                "timestamp": "timestamp",
+                "description": "description",
+                "name": "name",
+                "doctor": "doctoremail"
             }
         ]
-     },
-     "accessList":[
-        "rachelsequeira005@gmail.com"
-     ]
+    },
+    "firstName": "Rachel",
+    "accessList": [
+        "rachelsequeira005@gmail.com",
+        "rachel.c.sequeira@gmail.com"
+    ],
+    "age": "23",
+    "email": "colindsouza777@gmail.com"
 }

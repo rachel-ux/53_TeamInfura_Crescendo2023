@@ -59,10 +59,11 @@ const PatientDashboard = () => {
   const user = data;
   const rows = data.accessList;
 
+
+
   useEffect(()=>{
     if(window){
       console.log("hi",data.accessList)
-      
     }
   },[])
 
