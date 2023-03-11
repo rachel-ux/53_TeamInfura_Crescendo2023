@@ -97,8 +97,14 @@ const LoginPage = () => {
       .then((res)=>{
         console.log("res", res);
         if(res.data.status === "Login Successful"){
-          localStorage.setItem("user", res.data.user);
-          router.push("/");
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          if(res.data.user.type == "patient"){
+
+            router.push("/patient");
+          }
+          else{
+            router.push("/doctor");
+          }
         }
         else{
           alert(res.data.status);
@@ -240,7 +246,7 @@ const LoginPage = () => {
                 New on our platform?
               </Typography>
               <Typography variant='body2'>
-                <Link passHref href='/pages/register'>
+                <Link passHref href='/register'>
                   <LinkStyled>Create an account</LinkStyled>
                 </Link>
               </Typography>

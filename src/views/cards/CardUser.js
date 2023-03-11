@@ -36,17 +36,17 @@ const CardUser = () => {
           }}
         >
           <Box sx={{ mr: 2, mb: 1, display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='h6'>Robert Meyer</Typography>
-            <Typography variant='caption'>London, UK</Typography>
+            <Typography variant='h6'>Rachel Sequeira</Typography>
+            <Typography variant='caption'>Mumbai, Maharashtra</Typography>
           </Box>
-          <Button variant='contained'>Send Request</Button>
+          <Button variant='contained'>Edit</Button>
         </Box>
         <Box sx={{ gap: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant='subtitle2' sx={{ whiteSpace: 'nowrap', color: 'text.primary' }}>
             18 mutual friends
           </Typography>
           <AvatarGroup max={4}>
-            <Avatar src='/images/avatars/8.png' alt='Alice Cobb' />
+            <Avatar src='/images/avatars/8.png' alt='Alice Cobnb' />
             <Avatar src='/images/avatars/7.png' alt='Jeffery Warner' />
             <Avatar src='/images/avatars/3.png' alt='Howard Lloyd' />
             <Avatar src='/images/avatars/2.png' alt='Bettie Dunn' />

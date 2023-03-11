@@ -10,7 +10,7 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/api/auth/*',
+        source: '/api/auth/',
         destination: 'http://localhost:5000/api/auth/*',
       },
     ]

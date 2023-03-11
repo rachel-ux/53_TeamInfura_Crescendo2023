@@ -14,6 +14,13 @@ import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 import CellphoneLink from 'mdi-material-ui/CellphoneLink'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
+import Chip from '@mui/material/Chip'
+import TableRow from '@mui/material/TableRow'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import Typography from '@mui/material/Typography'
+import TableContainer from '@mui/material/TableContainer'
 
 const salesData = [
   {
@@ -72,18 +79,20 @@ const StatisticsCard = () => {
   return (
     <Card>
       <CardHeader
-        title='Statistics Card'
+        title='PHR Information'
         action={
           <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
-            <DotsVertical />
+            <Avatar sx={{ boxShadow: 3, marginRight: 4, color: 'common.white', backgroundColor: `primary.main` }}>
+          
+          </Avatar>
           </IconButton>
         }
         subheader={
           <Typography variant='body2'>
-            <Box component='span' sx={{ fontWeight: 600, color: 'text.primary' }}>
-              Total 48.5% growth
-            </Box>{' '}
-            😎 this month
+           
+              This data is displayed to everyone who views your profile
+          
+            😎 on our platform
           </Typography>
         }
         titleTypographyProps={{
@@ -96,7 +105,64 @@ const StatisticsCard = () => {
       />
       <CardContent sx={{ pt: theme => `${theme.spacing(3)} !important` }}>
         <Grid container spacing={[5, 0]}>
-          {renderStats()}
+       <Grid item md={12}>
+       <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+              Age:{' '}
+              <Box component='span' sx={{ fontWeight: 'bold' }}>
+                23 years
+              </Box>
+            </Typography>
+       </Grid>
+            <br></br>
+            <Grid item md={12}>
+       <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+              Bloodgroup:{' '}
+              <Box component='span' sx={{ fontWeight: 'bold' }}>
+                O+
+              </Box>
+            </Typography>
+       </Grid>
+           <Grid item md={12}>
+           <TableContainer>
+              <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    
+                    <TableCell>Date</TableCell>
+                    <TableCell>Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map(row => (
+                    <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography>
+                          <Typography variant='caption'>{row.designation}</Typography>
+                        </Box>
+                      </TableCell>
+                     
+                      <TableCell>{row.date}</TableCell>
+                     
+                      <TableCell>
+                        <Chip
+                          label={row.status}
+                          color={statusObj[row.status].color}
+                          sx={{
+                            height: 24,
+                            fontSize: '0.75rem',
+                            textTransform: 'capitalize',
+                            '& .MuiChip-label': { fontWeight: 500 }
+                          }}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+           </Grid>
         </Grid>
       </CardContent>
     </Card>

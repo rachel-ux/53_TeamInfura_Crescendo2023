@@ -30,7 +30,7 @@ const CardWithCollapse = () => {
       <CardMedia sx={{ height: '14.5625rem' }} image='/images/cards/paper-boat.png' />
       <CardContent>
         <Typography variant='h6' sx={{ marginBottom: 2 }}>
-          Popular Uses Of The Internet
+         Lab Report 
         </Typography>
         <Typography variant='body2'>
           Although cards can support multiple actions, UI controls, and an overflow menu.

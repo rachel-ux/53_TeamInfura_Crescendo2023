@@ -26,17 +26,19 @@ import Google from 'mdi-material-ui/Google'
 import Github from 'mdi-material-ui/Github'
 import Twitter from 'mdi-material-ui/Twitter'
 import Facebook from 'mdi-material-ui/Facebook'
+import FormHelperText from '@mui/material/FormHelperText'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 import axios from 'axios'
 // ** Configs
 import themeConfig from 'src/configs/themeConfig'
-
+import Grid from '@mui/material/Grid'
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
+import { useRouter } from 'next/router'
 
 // ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -65,6 +67,8 @@ const RegisterPage = () => {
     firstName: '',
     lastName: '',
     password: '',
+    bloodgroup:'',
+    age:'',
     showPassword: false
   })
 
@@ -83,25 +87,30 @@ const RegisterPage = () => {
     event.preventDefault()
   }
 
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    if(values.email && values.firstName && values.lastName && values.password){
-      axios.post('http://localhost:5000/api/auth/createAccount', {
-        email: values.email,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        password: values.password
-      })
+  const router = useRouter();
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    if (values.email && values.firstName && values.lastName && values.password) {
+      axios
+        .post('http://localhost:5000/api/auth/createAccount', {
+          email: values.email,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          password: values.password,
+          bloodgroup:values.bloodgroup,
+          age:values.age
+        })
         .then(res => {
-          console.log(res);
-          if(res.data.status == "User Created Successfully"){
-            localStorage.setItem("user", res.data.user);
-            router.push("/");
+          console.log(res)
+          if (res.data.status == 'User Created Successfully') {
+            localStorage.setItem('user', JSON.stringify(res.data.user))
+            router.push('/patient')
           }
         })
         .catch(err => {
           console.log(err)
-          alert("Registration failed")
+          alert('Registration failed')
         })
     }
   }
@@ -189,10 +198,52 @@ const RegisterPage = () => {
             </Typography>
             <Typography variant='body2'>Make your app management easy and fun!</Typography>
           </Box>
-          <form >
-            <TextField autoFocus fullWidth onChange={handleChange('firstName')} id='firstName' label='firstName' sx={{ marginBottom: 4 }} />
-            <TextField autoFocus fullWidth onChange={handleChange('lastName')} id='lastName' label='lastName' sx={{ marginBottom: 4 }} />
+          <form>
+            <TextField
+              autoFocus
+              fullWidth
+              onChange={handleChange('firstName')}
+              id='firstName'
+              label='firstName'
+              sx={{ marginBottom: 4 }}
+            />
+            <TextField
+              autoFocus
+              fullWidth
+              onChange={handleChange('lastName')}
+              id='lastName'
+              label='lastName'
+              sx={{ marginBottom: 4 }}
+            />
             <TextField fullWidth onChange={handleChange('email')} type='email' label='Email' sx={{ marginBottom: 4 }} />
+  
+                <FormControl sx={{width:'15ch' }} variant='outlined'>
+                  <OutlinedInput
+                    id='bloodgroup'
+                    value={values.bloodgroup}
+                    onChange={handleChange('bloodgroup')}
+                    aria-describedby='outlined-bloodgroup-helper-text'
+                    inputProps={{
+                      'aria-label': 'bloodgroup'
+                    }}
+                  />
+                  <FormHelperText id='outlined-bloodgroup-helper-text'>Bloodgroup</FormHelperText>
+                </FormControl>
+        
+                <FormControl sx={{ width:'9ch' }} variant='outlined'>
+                  <OutlinedInput
+                    id='age'
+                    value={values.age}
+                    onChange={handleChange('age')}
+                    endAdornment={<InputAdornment position='end'>yrs</InputAdornment>}
+                    aria-describedby='outlined-age-helper-text'
+                    inputProps={{
+                      'aria-label': 'age'
+                    }}
+                  />
+                  <FormHelperText id='outlined-age-helper-text'>Age</FormHelperText>
+                </FormControl>
+       
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-register-password'>Password</InputLabel>
               <OutlinedInput
@@ -226,7 +277,14 @@ const RegisterPage = () => {
                 </Fragment>
               }
             />
-            <Button onClick={handleSubmit} fullWidth size='large' type='submit' variant='contained' sx={{ marginBottom: 7 }}>
+            <Button
+              onClick={handleSubmit}
+              fullWidth
+              size='large'
+              type='submit'
+              variant='contained'
+              sx={{ marginBottom: 7 }}
+            >
               Sign up
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
