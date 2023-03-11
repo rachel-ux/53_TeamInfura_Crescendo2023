@@ -36,6 +36,7 @@ import Button from '@mui/material/Button'
 import Link from 'next/link'
 import TextField from '@mui/material/TextField'
 import { useRouter } from 'next/router'
+import data from "../dataresponse.json"
 
 const rows = [
   {
@@ -54,18 +55,14 @@ const statusObj = {
 }
 
 const PatientDashboard = () => {
-  const [user, setUser] = useState({});
 
-  const [rows, setRows] = useState([]);
+  const user = data;
+  const rows = data.accessList;
 
-  useEffect(async ()=>{
+  useEffect(()=>{
     if(window){
-      console.log("hi")
-      await setUser(JSON.parse(localStorage.getItem("user")))
-      console.log(JSON.parse(localStorage.getItem("user")))
-      console.log(user);
-      await setRows(user.accessList)
-      console.log(rows);
+      console.log("hi",data.accessList)
+      
     }
   },[])
 
@@ -73,7 +70,7 @@ const PatientDashboard = () => {
     <ApexChartWrapper>
       <Grid container spacing={6}>
         <Grid item xs={12} md={4}>
-          <Trophy name={user.firstName} />
+          <Trophy name={user.email} />
         </Grid>
         <Grid item xs={12} md={8}>
         <Card>

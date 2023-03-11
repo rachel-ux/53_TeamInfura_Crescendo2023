@@ -1,0 +1,30 @@
+{
+    "email": "email",
+    "firstName": "firstName",
+    "lastName": "lastName",
+    "age": "age",
+    "password": "password",
+    "bloodgroup": "bloodgroup",
+     "medicalData":{
+        "diagonsis":[
+            {
+                "name":"name",
+                "description":"description",
+                "doctor":"doctoremail",
+                "timestamp":"timestamp",
+                "documentUploaded":[
+                    "hash"
+                ]
+            }
+        ],
+        "records":[
+            {
+                "name":"rachel",
+                "timestamp":"timestamp"
+            }
+        ]
+     },
+     "accessList":[
+        "rachelsequeira005@gmail.com"
+     ]
+}

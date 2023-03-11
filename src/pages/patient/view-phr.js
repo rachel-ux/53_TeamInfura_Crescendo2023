@@ -24,6 +24,8 @@ import Modal from '@mui/material/Modal'
 import { FileUploader } from 'react-drag-drop-files'
 import TextField from '@mui/material/TextField'
 import { useEffect } from 'react'
+import data from "../dataresponse.json";
+
 
 const statusObj = {
   revoked: { color: 'error' },
@@ -90,9 +92,9 @@ const rows = [
   }
 ]
 const ViewPHR = () => {
-  const [user, setUser] = useState({});
+  const user = data;
   const [email, setEmail] = useState('')
-  const [diagnosis, setDiagnosis] = useState([])
+  const diagnosis = data.medicalData.diagonsis;
   const [open, setOpen] = useState(false)
   const [open1, setOpen1] = useState(false)
   const [open2, setOpen2] = useState(false)
@@ -113,6 +115,7 @@ const ViewPHR = () => {
   const handleSubmit = e => {
     e.preventDefault()
     console.log('email: ', email)
+    axios.post("http://localhost:5000/api/auth/")
   }
 
   const handleRedirect = e => {
@@ -120,15 +123,10 @@ const ViewPHR = () => {
     console.log('redirecting')
   }
 
-  useEffect(async ()=>{
-    if(window){
+  useEffect( ()=>{
+    console.log("hi")
+       console.log(data.medicalData.diagonsis);
 
-      await setUser(JSON.parse(localStorage.getItem("user")))
-      console.log(JSON.parse(localStorage.getItem("user")))
-      console.log("user",user.medicalData)
-      setDiagnosis(user.medicalData.diagonsis);
-      console.log("diagnosis:", diagnosis)
-    }
   },[])
 
   return (
@@ -368,25 +366,25 @@ const ViewPHR = () => {
                       <TableHead>
                         <TableRow>
                           <TableCell>Email</TableCell>
-                          <TableCell>Name</TableCell>
+                          <TableCell>Timestamp</TableCell>
                           <TableCell>Diagonsis</TableCell>
 
                           <TableCell>Description</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {rows.map(row => (
-                          <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                      {diagnosis.map(row => (
+                          <TableRow hover key={row.doctor} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                             <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                 <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
-                                  {row.name}
+                                  {row.doctor}
                                 </Typography>
                                 <Typography variant='caption'>{row.designation}</Typography>
                               </Box>
                             </TableCell>
-                            <TableCell>{row.date}</TableCell>
-                            <TableCell>{row.diagnosis}</TableCell>
+                            <TableCell>{row.timestamp}</TableCell>
+                            <TableCell>{row.name}</TableCell>
                             <TableCell>{row.description}</TableCell>
                             <TableCell>
                               <Button component='a' variant='contained' onClick={handleOpen1} sx={{ px: 5.5 }}>
