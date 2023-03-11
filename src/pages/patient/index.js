@@ -21,6 +21,10 @@ import { useEffect, useState } from 'react'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
+import CardHeader from '@mui/material/CardHeader'
+import IconButton from '@mui/material/IconButton'
+import Avatar from '@mui/material/Avatar'
+import CardContent from '@mui/material/CardContent'
 import Chip from '@mui/material/Chip'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
@@ -90,7 +94,56 @@ const PatientDashboard = () => {
           <Trophy name={user.firstName} />
         </Grid>
         <Grid item xs={12} md={8}>
-          <StatisticsCard />
+        <Card>
+      <CardHeader
+        title='PHR Information'
+        action={
+          <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
+            <Avatar sx={{ boxShadow: 3, marginRight: 4, color: 'common.white', backgroundColor: `primary.main` }}>
+          
+          </Avatar>
+          </IconButton>
+        }
+        subheader={
+          <Typography variant='body2'>
+           
+              This data is displayed to everyone who views your profile
+          
+            😎 on our platform
+          </Typography>
+        }
+        titleTypographyProps={{
+          sx: {
+            mb: 2.5,
+            lineHeight: '2rem !important',
+            letterSpacing: '0.15px !important'
+          }
+        }}
+      />
+      <CardContent sx={{ pt: theme => `${theme.spacing(3)} !important` }}>
+        <Grid container spacing={[5, 0]}>
+       <Grid item md={12}>
+       <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+              Age:{' '}
+              <Box component='span' sx={{ fontWeight: 'bold' }}>
+                23 years
+              </Box>
+            </Typography>
+       </Grid>
+            <br></br>
+            <Grid item md={12}>
+       <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+              Bloodgroup:{' '}
+              <Box component='span' sx={{ fontWeight: 'bold' }}>
+                O+
+              </Box>
+            </Typography>
+       </Grid>
+           <Grid item md={12}>
+           </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
         </Grid>
 
         <Grid item xs={12}>

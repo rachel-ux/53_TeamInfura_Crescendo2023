@@ -19,7 +19,7 @@ import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
-import Typography from '@mui/material/Typography'
+import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
 
 const salesData = [

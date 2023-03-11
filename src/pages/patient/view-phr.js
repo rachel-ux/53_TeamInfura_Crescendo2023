@@ -9,9 +9,10 @@ import Avatar from '@mui/material/Avatar'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import AvatarGroup from '@mui/material/AvatarGroup'
-
 import Chip from '@mui/material/Chip'
 import Table from '@mui/material/Table'
+import Fab from '@mui/material/Fab'
+import ArrowUp from 'mdi-material-ui/ArrowUp'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
@@ -19,94 +20,217 @@ import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import TableContainer from '@mui/material/TableContainer'
-import Modal from '@mui/material/Modal';
+import Modal from '@mui/material/Modal'
 
-import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField'
 
 const statusObj = {
-    revoked: { color: 'error' },
-    granted: { color: 'success' }
-  }
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+  revoked: { color: 'error' },
+  granted: { color: 'success' }
+}
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+}
+
+const style1 = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 900,
+  height: 600,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+}
+
+
 const rows = [
-    {
-      age: 27,
-      status: 'revoked',
-      date: '09/27/2018',
-      name: 'Sally Quinn',
-      salary: '$19586.23',
-      email: 'eebsworth2m@sbwire.com',
-      diagnosis:"diagnosis",
-      description:"description"
-    },
-    {
-      age: 61,
-      date: '09/23/2016',
-      salary: '$23896.35',
-      status: 'granted',
-      name: 'Margaret Bowers',
-      email: 'kocrevy0@thetimes.co.uk',
-      diagnosis:"diagnosis",
-      description:"description"
-    }
-    
-  ]
+  {
+    age: 27,
+    status: 'revoked',
+    date: '09/27/2018',
+    name: 'Sally Quinn',
+    salary: '$19586.23',
+    email: 'eebsworth2m@sbwire.com',
+    diagnosis: 'diagnosis',
+    description: 'description'
+  },
+  {
+    age: 61,
+    date: '09/23/2016',
+    salary: '$23896.35',
+    status: 'granted',
+    name: 'Margaret Bowers',
+    email: 'kocrevy0@thetimes.co.uk',
+    diagnosis: 'diagnosis',
+    description: 'description'
+  }
+]
 const ViewPHR = () => {
+  const [email, setEmail] = useState('')
+  const [open, setOpen] = useState(false)
+  const [open1, setOpen1] = useState(false)
 
-    const [email, setEmail] = useState('');
-    const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true)
+  const handleOpen1 = () => setOpen1(true)
 
-  const handleChange = (event) =>{
+  const handleClose = () => setOpen(false)
+  const handleClose1 = () => setOpen1(false)
+
+  const handleChange = event => {
     //console.log(event.target.value);
-    setEmail(event.target.value);
-  };
+    setEmail(event.target.value)
+  }
 
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    console.log("email: ",email);
+  const handleSubmit = e => {
+    e.preventDefault()
+    console.log('email: ', email)
+  }
+
+  const handleRedirect = e => {
+    e.preventDefault()
+    console.log('redirecting')
   }
 
   return (
     <ApexChartWrapper>
-        <Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box sx={style}>
-    <Grid container>
-    <Typography id="modal-modal-title" variant="h6" component="h2">
-      Give access to doctor
-    </Typography>
-        <Grid item xs={12} md={12}>
-            <br></br>
-       
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={style}>
+          <Grid container>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              Give access to doctor
+            </Typography>
+            <Grid item xs={12} md={12}>
+              <br></br>
 
-    <TextField id="standard-basic" value={email} onChange={handleChange} label="Enter Email" variant="standard" />
-        </Grid>
-        <Grid item xs={12} md={12}></Grid>
-        <Grid item xs={12} md={12}>
+              <TextField
+                id='standard-basic'
+                value={email}
+                onChange={handleChange}
+                label='Enter Email'
+                variant='standard'
+              />
+            </Grid>
+            <Grid item xs={12} md={12}></Grid>
+            <Grid item xs={12} md={12}>
+              <br></br>
+              <Button
+                size='small'
+                onClick={e => {
+                  handleSubmit(e)
+                }}
+                variant='contained'
+              >
+                Get Started
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
+      <Modal
+        open={open1}
+        onClose={handleClose1}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={style1}>
+          <Grid container>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              Medical Diagnosis Details
+            </Typography>
             <br></br>
-        <Button size='small' onClick={(e) =>{handleSubmit(e)}} variant='contained'>
-          Get Started
-        </Button>
-        </Grid>
-    </Grid>
-  </Box>
-</Modal>
+            <br></br>
+            <br></br>
+            <Grid container spacing={[5, 0]}>
+              <Grid item md={6}>
+                <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+                  Name:{' '}
+                  <Box component='span' sx={{ fontWeight: 'bold' }}>
+                    23 years
+                  </Box>
+                </Typography>
+              </Grid>
+              <br></br>
+              <Grid item md={6}>
+                <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+                  Doctor Name:{' '}
+                  <Box component='span' sx={{ fontWeight: 'bold' }}>
+                    O+
+                  </Box>
+                </Typography>
+              </Grid>
+              <Grid item md={6}>
+                <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+                  Timestamp:{' '}
+                  <Box component='span' sx={{ fontWeight: 'bold' }}>
+                    O+
+                  </Box>
+                </Typography>
+              </Grid>
+              <Grid item md={6}>
+                <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+                  Description:{' '}
+                  <Box component='span' sx={{ fontWeight: 'bold' }}>
+                    O+
+                  </Box>
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Grid item>
+                  <br></br>
+                </Grid>
+                <Typography sx={{ fontWeight: 900, marginBottom: 3 }}>Medical Records</Typography>
+              </Grid>
+              <Grid item md={12}>
+                <TableContainer>
+                  <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Date</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {rows.map(row => (
+                        <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                          <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                              <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                                {row.name}
+                              </Typography>
+                            </Box>
+                          </TableCell>
+                          <TableCell>{row.date}</TableCell>
+                          <TableCell>
+                            <Button component='a' onClick={handleRedirect} variant='contained' sx={{ px: 5.5 }}>
+                              View
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
       <Grid container spacing={6}>
         <Grid item xs={12} md={8}>
           <Card sx={{ position: 'relative' }}>
@@ -138,7 +262,9 @@ const ViewPHR = () => {
                   <Typography variant='h6'>Rachel Sequeira</Typography>
                   <Typography variant='caption'>Mumbai, Maharashtra</Typography>
                 </Box>
-                <Button variant='contained' onClick={handleOpen}>Give Access</Button>
+                <Button variant='contained' onClick={handleOpen}>
+                  Give Access
+                </Button>
               </Box>
               <Box
                 sx={{
@@ -155,41 +281,43 @@ const ViewPHR = () => {
               </Box>
               <Grid container>
                 <Grid item xs={12} md={12}>
-                <TableContainer>
-        <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Diagonsis</TableCell>
-              
-              <TableCell>Description</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography>
-                    <Typography variant='caption'>{row.designation}</Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>{row.date}</TableCell>
-                <TableCell>{row.diagnosis}</TableCell>
-                <TableCell>{row.description}</TableCell>
-                <TableCell>
-                <Button component='a'  variant='contained' sx={{ px: 5.5 }}>
-            View
-          </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  <TableContainer>
+                    <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Name</TableCell>
+                          <TableCell>Date</TableCell>
+                          <TableCell>Diagonsis</TableCell>
+
+                          <TableCell>Description</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {rows.map(row => (
+                          <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                                  {row.name}
+                                </Typography>
+                                <Typography variant='caption'>{row.designation}</Typography>
+                              </Box>
+                            </TableCell>
+                            <TableCell>{row.date}</TableCell>
+                            <TableCell>{row.diagnosis}</TableCell>
+                            <TableCell>{row.description}</TableCell>
+                            <TableCell>
+                              <Button component='a' variant='contained' onClick={handleOpen1} sx={{ px: 5.5 }}>
+                                View
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                 </Grid>
-                </Grid>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>
@@ -197,8 +325,10 @@ const ViewPHR = () => {
           <CardWithCollapse />
           <br></br>
           <CardWithCollapse />
+         
         </Grid>
       </Grid>
+      
     </ApexChartWrapper>
   )
 }

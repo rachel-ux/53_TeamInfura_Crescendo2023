@@ -30,7 +30,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 900,
-  height: 400,
+  height: 500,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -63,6 +63,12 @@ const ViewRecords = () => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+
+
+  const handleRedirect = () =>{
+
+  }
   return (
     <ApexChartWrapper>
       <Modal
@@ -113,7 +119,15 @@ const ViewRecords = () => {
                   </Box>
                 </Typography>
               </Grid>
-              <Grid item></Grid>
+              <Grid item>
+                <Grid item>
+                    <br></br>
+                </Grid>
+              <Typography sx={{ fontWeight: 900, marginBottom: 3 }}>
+                  Medical Records
+                  
+                </Typography>
+              </Grid>
               <Grid item md={12}>
                 <TableContainer>
                   <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
@@ -121,9 +135,7 @@ const ViewRecords = () => {
                       <TableRow>
                         <TableCell>Name</TableCell>
                         <TableCell>Date</TableCell>
-                        <TableCell>Diagonsis</TableCell>
-
-                        <TableCell>Description</TableCell>
+                        
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -134,14 +146,12 @@ const ViewRecords = () => {
                               <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
                                 {row.name}
                               </Typography>
-                              <Typography variant='caption'>{row.designation}</Typography>
+                             
                             </Box>
                           </TableCell>
                           <TableCell>{row.date}</TableCell>
-                          <TableCell>{row.diagnosis}</TableCell>
-                          <TableCell>{row.description}</TableCell>
                           <TableCell>
-                            <Button component='a' onClick={handleOpen} variant='contained' sx={{ px: 5.5 }}>
+                            <Button component='a' onClick={handleRedirect} variant='contained' sx={{ px: 5.5 }}>
                               View
                             </Button>
                           </TableCell>
@@ -254,6 +264,7 @@ const ViewRecords = () => {
         </Grid>
         <Grid item xs={12} md={4}></Grid>
       </Grid>
+      
     </ApexChartWrapper>
   )
 }
