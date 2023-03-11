@@ -21,8 +21,9 @@ import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import TableContainer from '@mui/material/TableContainer'
 import Modal from '@mui/material/Modal'
-
+import { FileUploader } from 'react-drag-drop-files'
 import TextField from '@mui/material/TextField'
+import { useEffect } from 'react'
 
 const statusObj = {
   revoked: { color: 'error' },
@@ -53,6 +54,18 @@ const style1 = {
   p: 4
 }
 
+const style2 = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 900,
+  height: 600,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+}
 
 const rows = [
   {
@@ -77,15 +90,20 @@ const rows = [
   }
 ]
 const ViewPHR = () => {
+  const [user, setUser] = useState({});
   const [email, setEmail] = useState('')
+  const [diagnosis, setDiagnosis] = useState([])
   const [open, setOpen] = useState(false)
   const [open1, setOpen1] = useState(false)
+  const [open2, setOpen2] = useState(false)
 
   const handleOpen = () => setOpen(true)
   const handleOpen1 = () => setOpen1(true)
+  const handleOpen2 = () => setOpen2(true)
 
   const handleClose = () => setOpen(false)
   const handleClose1 = () => setOpen1(false)
+  const handleClose2 = () => setOpen2(false)
 
   const handleChange = event => {
     //console.log(event.target.value);
@@ -101,6 +119,17 @@ const ViewPHR = () => {
     e.preventDefault()
     console.log('redirecting')
   }
+
+  useEffect(async ()=>{
+    if(window){
+
+      await setUser(JSON.parse(localStorage.getItem("user")))
+      console.log(JSON.parse(localStorage.getItem("user")))
+      console.log("user",user.medicalData)
+      setDiagnosis(user.medicalData.diagonsis);
+      console.log("diagnosis:", diagnosis)
+    }
+  },[])
 
   return (
     <ApexChartWrapper>
@@ -231,6 +260,59 @@ const ViewPHR = () => {
           </Grid>
         </Box>
       </Modal>
+      <Modal
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={style2}>
+          <Grid container>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              Upload Medical Documents
+            </Typography>
+            <br></br>
+            <br></br>
+            <br></br>
+            <Grid container spacing={[5, 0]}>
+              <Grid item md={6}>
+                <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+                  Name:{' '}
+                  <Box component='span' sx={{ fontWeight: 'bold' }}>
+                    23 years
+                  </Box>
+                </Typography>
+              </Grid>
+              <br></br>
+              <Grid item md={6}>
+                <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+                  Doctor Name:{' '}
+                  <Box component='span' sx={{ fontWeight: 'bold' }}>
+                    O+
+                  </Box>
+                </Typography>
+              </Grid>
+              <Grid item md={6}>
+                <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+                  Timestamp:{' '}
+                  <Box component='span' sx={{ fontWeight: 'bold' }}>
+                    O+
+                  </Box>
+                </Typography>
+              </Grid>
+              <Grid item md={6}>
+                <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
+                  Description:{' '}
+                  <Box component='span' sx={{ fontWeight: 'bold' }}>
+                    O+
+                  </Box>
+                </Typography>
+              </Grid>
+             
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
       <Grid container spacing={6}>
         <Grid item xs={12} md={8}>
           <Card sx={{ position: 'relative' }}>
@@ -285,8 +367,8 @@ const ViewPHR = () => {
                     <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
                       <TableHead>
                         <TableRow>
+                          <TableCell>Email</TableCell>
                           <TableCell>Name</TableCell>
-                          <TableCell>Date</TableCell>
                           <TableCell>Diagonsis</TableCell>
 
                           <TableCell>Description</TableCell>
@@ -322,13 +404,25 @@ const ViewPHR = () => {
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <CardWithCollapse />
-          <br></br>
-          <CardWithCollapse />
-         
+        <Grid container spacing={2}>
+              <Grid item xs={4} md={9}>
+              <Typography sx={{ fontWeight: 900, marginBottom: 3, fontSize: 20 }}>
+             Medical Records
+              
+            </Typography>
+              </Grid>
+              <Grid item xs={4} md={2}>
+                <Button variant='contained' onClick={handleOpen2}>Upload</Button>
+              </Grid>
+            </Grid>
+            <Grid item xs={6} md={12}>
+            <CardWithCollapse />
+            <br></br>
+            <CardWithCollapse />
+          </Grid>
+          
         </Grid>
       </Grid>
-      
     </ApexChartWrapper>
   )
 }

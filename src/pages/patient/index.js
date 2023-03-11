@@ -40,7 +40,7 @@ import { useRouter } from 'next/router'
 const rows = [
   {
     age: 27,
-    status: 'revoked',
+    status: 'granted',
     date: '09/27/2018',
     name: 'Sally Quinn',
     salary: '$19586.23',
@@ -54,36 +54,18 @@ const statusObj = {
 }
 
 const PatientDashboard = () => {
-  const [user, setUser] = useState({
-    email: 'email',
-    firstName: 'rachel',
-    lastName: 'lastName',
-    age: 'age',
-    password: 'password',
-    bloodgroup: 'bloodgroup',
-    medicalData: {
-      diagonsis: [
-        {
-          name: 'name',
-          description: 'description',
-          doctor: 'doctoremail',
-          timestamp: 'timestamp',
-          documentUploaded: ['hash']
-        }
-      ],
-      records: [
-        {
-          name: 'rachel',
-          timestamp: 'timestamp'
-        }
-      ]
-    }
-  })
+  const [user, setUser] = useState({});
 
-  useEffect(()=>{
+  const [rows, setRows] = useState([]);
+
+  useEffect(async ()=>{
     if(window){
+      console.log("hi")
+      await setUser(JSON.parse(localStorage.getItem("user")))
       console.log(JSON.parse(localStorage.getItem("user")))
-      setUser(JSON.parse(localStorage.getItem("user")))
+      console.log(user);
+      await setRows(user.accessList)
+      console.log(rows);
     }
   },[])
 
@@ -126,7 +108,7 @@ const PatientDashboard = () => {
        <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
               Age:{' '}
               <Box component='span' sx={{ fontWeight: 'bold' }}>
-                23 years
+                {user.age}
               </Box>
             </Typography>
        </Grid>
@@ -135,7 +117,7 @@ const PatientDashboard = () => {
        <Typography sx={{ fontWeight: 500, marginBottom: 3 }}>
               Bloodgroup:{' '}
               <Box component='span' sx={{ fontWeight: 'bold' }}>
-                O+
+               {user.bloodgroup}
               </Box>
             </Typography>
        </Grid>
@@ -154,26 +136,23 @@ const PatientDashboard = () => {
                   <TableRow>
                     <TableCell>Name</TableCell>
                     
-                    <TableCell>Date</TableCell>
                     <TableCell>Status</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map(row => (
-                    <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography>
-                          <Typography variant='caption'>{row.designation}</Typography>
-                        </Box>
-                      </TableCell>
-                     
-                      <TableCell>{row.date}</TableCell>
-                     
-                      <TableCell>
+                {rows.map(row => (
+                          <TableRow hover key={row} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                                  {row}
+                                </Typography>
+                              </Box>
+                            </TableCell>
+                            <TableCell>
                         <Chip
-                          label={row.status}
-                          color={statusObj[row.status].color}
+                          label={"Granted"}
+                          color="success"
                           sx={{
                             height: 24,
                             fontSize: '0.75rem',
@@ -182,14 +161,15 @@ const PatientDashboard = () => {
                           }}
                         />
                       </TableCell>
-                    </TableRow>
-                  ))}
+                          </TableRow>
+                        ))}
                 </TableBody>
               </Table>
             </TableContainer>
           </Card>
         </Grid>
       </Grid>
+     
     </ApexChartWrapper>
   )
 }

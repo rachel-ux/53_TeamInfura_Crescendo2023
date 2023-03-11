@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 // ** MUI Components
 import Box from '@mui/material/Box'
+import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Checkbox from '@mui/material/Checkbox'
@@ -18,6 +19,7 @@ import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiCard from '@mui/material/Card'
+import Select from '@mui/material/Select';
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
 
@@ -67,8 +69,9 @@ const RegisterPage = () => {
     firstName: '',
     lastName: '',
     password: '',
-    bloodgroup:'',
-    age:'',
+    bloodgroup: '',
+    type: '',
+    age: '',
     showPassword: false
   })
 
@@ -87,7 +90,7 @@ const RegisterPage = () => {
     event.preventDefault()
   }
 
-  const router = useRouter();
+  const router = useRouter()
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -98,8 +101,9 @@ const RegisterPage = () => {
           firstName: values.firstName,
           lastName: values.lastName,
           password: values.password,
-          bloodgroup:values.bloodgroup,
-          age:values.age
+          bloodgroup: values.bloodgroup,
+          age: values.age,
+          type: values.type
         })
         .then(res => {
           console.log(res)
@@ -216,34 +220,6 @@ const RegisterPage = () => {
               sx={{ marginBottom: 4 }}
             />
             <TextField fullWidth onChange={handleChange('email')} type='email' label='Email' sx={{ marginBottom: 4 }} />
-  
-                <FormControl sx={{width:'15ch' }} variant='outlined'>
-                  <OutlinedInput
-                    id='bloodgroup'
-                    value={values.bloodgroup}
-                    onChange={handleChange('bloodgroup')}
-                    aria-describedby='outlined-bloodgroup-helper-text'
-                    inputProps={{
-                      'aria-label': 'bloodgroup'
-                    }}
-                  />
-                  <FormHelperText id='outlined-bloodgroup-helper-text'>Bloodgroup</FormHelperText>
-                </FormControl>
-        
-                <FormControl sx={{ width:'9ch' }} variant='outlined'>
-                  <OutlinedInput
-                    id='age'
-                    value={values.age}
-                    onChange={handleChange('age')}
-                    endAdornment={<InputAdornment position='end'>yrs</InputAdornment>}
-                    aria-describedby='outlined-age-helper-text'
-                    inputProps={{
-                      'aria-label': 'age'
-                    }}
-                  />
-                  <FormHelperText id='outlined-age-helper-text'>Age</FormHelperText>
-                </FormControl>
-       
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-register-password'>Password</InputLabel>
               <OutlinedInput
@@ -266,6 +242,48 @@ const RegisterPage = () => {
                 }
               />
             </FormControl>
+            <FormControl sx={{ width: '15ch' }} variant='outlined'>
+              <OutlinedInput
+                id='bloodgroup'
+                value={values.bloodgroup}
+                onChange={handleChange('bloodgroup')}
+                aria-describedby='outlined-bloodgroup-helper-text'
+                inputProps={{
+                  'aria-label': 'bloodgroup'
+                }}
+              />
+              <FormHelperText id='outlined-bloodgroup-helper-text'>Bloodgroup</FormHelperText>
+            </FormControl>
+
+            <FormControl sx={{ width: '9ch' }} variant='outlined'>
+              <OutlinedInput
+                id='age'
+                value={values.age}
+                onChange={handleChange('age')}
+                endAdornment={<InputAdornment position='end'>yrs</InputAdornment>}
+                aria-describedby='outlined-age-helper-text'
+                inputProps={{
+                  'aria-label': 'age'
+                }}
+              />
+              <FormHelperText id='outlined-age-helper-text'>Age</FormHelperText>
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id='demo-simple-select-helper-label'>Type</InputLabel>
+              <Select
+                labelId='demo-simple-select-helper-label'
+                id='demo-simple-select-helper'
+                value={values.type}
+                label='type'
+                onChange={handleChange('type')}
+              >
+                
+                <MenuItem value={'patient'}>Patient</MenuItem>
+                <MenuItem value={'doctor'}>Doctor</MenuItem>
+              </Select>
+              
+            </FormControl>
+           
             <FormControlLabel
               control={<Checkbox />}
               label={

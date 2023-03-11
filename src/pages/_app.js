@@ -23,7 +23,7 @@ import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 
 // ** React Perfect Scrollbar Style
 import 'react-perfect-scrollbar/dist/css/styles.css'
-
+import LandingPage from '../pages/index.js'
 // ** Global css styles
 import '../../styles/globals.css'
 
